@@ -1,12 +1,21 @@
+import {css} from "uebersicht"
+
 export const command = "/usr/bin/osascript -e 'tell application \"System Events\"' -e 'set frontApp to name of first application process whose frontmost is true' -e 'end tell'"
 
 export const refreshFrequency = 2000;
 
 export const render = ({output}) => (
-    <div className="outer">
+    <div className={outer}>
         {output}
     </div>
 );
+
+const outer = css`
+	display: table-cell;
+    vertical-align: middle;
+    overflow: hidden;
+
+`
 
 export const className = `
     background-color: #2d2d2d;

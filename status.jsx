@@ -1,4 +1,4 @@
-import {run} from "uebersicht"
+import {run, css} from "uebersicht"
 
 const wifiCommand = "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk -F': ' '/ SSID/ {print $2}'";
 const batteryCommand = "pmset -g batt | egrep '([0-9]+\%).*' -o --colour=auto | cut -f1 -d'%'";
@@ -12,11 +12,18 @@ export const refreshFrequency = 2000;
 export const initialState = "Loading status...";
 
 export const render = (desktops) => (
-    <div className="outer">
+    <div className={outer}>
         <link rel="stylesheet" href="./style.css" />
         {desktops}
     </div>
 );
+
+const outer = css`
+	display: table-cell;
+    vertical-align: middle;
+    overflow: hidden;
+
+`
 
 export const className = `
     top: 3px;

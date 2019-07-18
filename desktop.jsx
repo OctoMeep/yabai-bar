@@ -1,4 +1,4 @@
-import {run} from "uebersicht"
+import {run, css} from "uebersicht"
 
 //export const command = "echo $(x=$(/usr/local/bin/chunkc tiling::query -d id);echo $(/usr/local/bin/chunkc tiling::query -D $(/usr/local/bin/chunkc tiling::query -m id))\",$x\")"
 export const command = "/usr/local/bin/yabai -m query --spaces";
@@ -8,12 +8,22 @@ export const refreshFrequency = 1000;
 export const initialState = "Loading desktops...";
 
 export const render = (icons) => (
-    <div className="outer">
+    <div className={outer}>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossOrigin="anonymous" />
-        <link rel="stylesheet" href="./style.css" />
         {icons}
     </div>
 );
+
+const outer = css`
+	display: table-cell;
+    vertical-align: middle;
+    overflow: hidden;
+
+`
+
+const active = css`
+	border-bottom: 2px solid #19cb00;
+`
 
 export const className = `
     top: 4px;
@@ -26,7 +36,6 @@ export const className = `
 `
 
 const parseState = (event) => {
-	console.log(event);
 	let data = JSON.parse(event.output);
 	let spaces = [];
 	let current = 1;
@@ -38,7 +47,6 @@ const parseState = (event) => {
 }
 
 export const updateState = (event, previousState) => {
-	console.log(event);
     let icons = [];
 	
     //let parts = event.output.split(',');
@@ -59,7 +67,7 @@ export const updateState = (event, previousState) => {
         }
         let isActive = workspace.toString() == current;
         icons.push(<div key={workspace} style={{float: "left"}}>
-            <span className={"icon " + (isActive ? "active" : "") + " " + iconClass}></span>
+            <span className={"icon " + (isActive ? active : "") + " " + iconClass}></span>
             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         </div>);
     });
