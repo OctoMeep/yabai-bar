@@ -1,0 +1,5 @@
+.outer {
+    display: table-cell;
+    vertical-align: middle;
+    overflow: hidden;
+}
